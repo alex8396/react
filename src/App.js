@@ -6,18 +6,7 @@ import TodoEditor from "./component/TodoEditor";
 import TodoList from './component/TodoList';
 
 const mockTodo = [
-  {
-    id:0,
-    isDone:false,
-    content:'react',
-    todoDate: new Date()
-  },
-  {
-    id:1,
-    isDone:false,
-    content:'html',
-    todoDate: new Date()
-  }
+  
 ]
 
 function reducer(state, action) {
