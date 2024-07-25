@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import Header from "./component/Header";
 import TodoEditor from "./component/TodoEditor";
 import TodoList from "./component/TodoList";
+import { getEmotion } from "./component/utill";
 
 
 
@@ -42,6 +43,7 @@ function App() {
       <Header />
       <TodoEditor onCreate={onCreate} />
       <TodoList todo={todo} onUpdate={onUpdate} onDelete={onDelete} />
+      <img alt='' src={getEmotion}></img>
     </div>
   );
 }
