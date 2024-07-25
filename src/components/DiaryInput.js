@@ -23,7 +23,7 @@ function DiaryInput({ onAdd }) {
         rows="5"
         cols="30"
       />
-      <button className='add' onClick={handleAdd}>Add Entry</button>
+      <button onClick={handleAdd}>Add Entry</button>
     </div>
   );
 }

@@ -5,8 +5,8 @@ function DiaryItem({ entry, onEdit, onDelete }) {
   return (
     <div className="diary-item">
       <p>{entry}</p>
-      <button className='edit' onClick={onEdit}>Edit</button>
-      <button className='delete' onClick={onDelete}>Delete</button>
+      <button onClick={onEdit}>Edit</button>
+      <button onClick={onDelete}>Delete</button>
     </div>
   );
 }

@@ -1,50 +1,57 @@
-import "./App.css";
-import { useState, useRef } from "react";
-import Header from "./component/Header";
-import TodoEditor from "./component/TodoEditor";
-import TodoList from "./component/TodoList";
-import { getEmotion } from "./component/utill";
-
-
-
-const mockTodo = [
-  
-];
+import React, { useState } from 'react';
+import './App.css';
+import DiaryInput from './components/DiaryInput';
+import DiaryList from './components/DiaryList';
 
 function App() {
-  const [todo, setTodo] = useState(mockTodo);
-  const idRef = useRef(3);
+  const [entries, setEntries] = useState([]);
+  const [editIndex, setEditIndex] = useState(null);
+  const [editText, setEditText] = useState('');
 
-  const onCreate = (content) => {
-    const newItem = {
-      id: idRef.current,
-      content,
-      isDone: false,
-      createdDate: new Date().getTime(),
-    };
-    setTodo([newItem, ...todo]);
-    idRef.current += 1;
+  const addEntry = (entry) => {
+    setEntries([...entries, entry]);
   };
 
-  const onUpdate = (targetId) => {
-    setTodo(
-      todo.map((it) =>
-        it.id === targetId ? { ...it, isDone: !it.isDone } : it
-      )
-    );
+  const editEntry = (index) => {
+    setEditIndex(index);
+    setEditText(entries[index]);
   };
 
-  const onDelete = (targetId) => {
-    setTodo(todo.filter((it) => it.id !== targetId));
+  const saveEdit = () => {
+    const updatedEntries = [...entries];
+    updatedEntries[editIndex] = editText;
+    setEntries(updatedEntries);
+    setEditIndex(null);
+    setEditText('');
+  };
+
+  const deleteEntry = (index) => {
+    setEntries(entries.filter((_, i) => i !== index));
   };
 
   return (
     <div className="App">
-      <Header />
-      <TodoEditor onCreate={onCreate} />
-      <TodoList todo={todo} onUpdate={onUpdate} onDelete={onDelete} />
-      <img alt='' src={getEmotion}></img>
+      <h1>Diary App</h1>
+      <DiaryInput onAdd={addEntry} />
+      {editIndex !== null && (
+        <div className="edit-container">
+          <textarea
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+            rows="5"
+            cols="30"
+          />
+          <button onClick={saveEdit}>Save</button>
+          <button onClick={() => setEditIndex(null)}>Cancel</button>
+        </div>
+      )}
+      <DiaryList
+        entries={entries}
+        onEdit={editEntry}
+        onDelete={deleteEntry}
+      />
     </div>
   );
 }
+
 export default App;
